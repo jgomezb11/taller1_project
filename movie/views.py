@@ -5,4 +5,4 @@ from django.http import HttpResponse
 # Create your views here.
 
 def movie(request):
-    return HttpResponse('<h1>Voy pa la ICPC carreado</h1>')
+    return render(request, 'movie.html', {'name':'Julian'})
