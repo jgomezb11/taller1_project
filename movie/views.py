@@ -2,6 +2,7 @@ import re
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.urls import re_path
+from .models import Movie
 
 # Create your views here.
 
@@ -10,4 +11,8 @@ def about(request):
     
 def movie(request):
     searchTerm = request.GET.get('searchMovie')
-    return render(request, 'movie.html', {'name':'Julian', 'searchTerm':searchTerm})
+    if searchTerm:
+        movies = Movie.objects.filter(title__icontains=searchTerm)
+    else:
+        movies = Movie.objects.all()
+    return render(request, 'movie.html', {'name':'Julian', 'searchTerm':searchTerm, 'movies':movies})
